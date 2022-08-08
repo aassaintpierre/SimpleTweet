@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -16,6 +18,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +58,30 @@ public class TimelineActivity extends AppCompatActivity {
 
 //        Find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
+
+
 //        Init the list of tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this,tweets);
+
+
+        adapter.setOnItemClickListener(new TweetsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Intent itent = new Intent(TimelineActivity.this, DetailActivity.class);
+                Tweet tweet = tweets.get(position);
+
+
+                itent.putExtra("tweets", Parcels.wrap(tweet));
+
+            TimelineActivity.this.startActivity(itent);
+            }
+        });
+
+
 //        Recycle view setup: layout manager and adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -69,8 +91,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
         };
         // Adds the scroll listener to RecyclerView
-        populateHomeTimeline();
         rvTweets.addOnScrollListener(scrollListener);
+        populateHomeTimeline();
     }
 
     private void loadMoreData() {
