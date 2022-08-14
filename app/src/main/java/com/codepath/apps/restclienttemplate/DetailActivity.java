@@ -23,13 +23,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
-
-        tvView = findViewById(R.id.tvView);
-        txtView = findViewById(R.id.txtView);
+        tvView = findViewById(R.id.tvname);
+        txtView = findViewById(R.id.tvbody2);
         imaj = findViewById(R.id.imaj);
 
-        Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweets"));
+        Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("Tweet"));
 
         tvView.setText(tweet.getBody());
         txtView.setText(tweet.getUser().getName());
