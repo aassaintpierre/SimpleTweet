@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvRetweet;
     TextView tvFavorite;
     TextView tvTime;
+    ImageView postImg;
     ImageView star;
     ImageView retweet;
     ImageView share;
@@ -43,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRetweet = findViewById(R.id.tvRetweet);
         tvFavorite = findViewById(R.id.tvFav);
         tvTime = findViewById(R.id.tvTime);
+        postImg = findViewById(R.id.tvImage);
 
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar2);
@@ -66,6 +69,14 @@ public class DetailActivity extends AppCompatActivity {
                 .load(tweet.user.profileImageUrl)
                 .transform(new RoundedCorners(50))
                 .into(imaj);
+
+        if(!tweet.entities.media_Url.isEmpty()) {
+            postImg.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(tweet.entities.media_Url)
+                    .transform(new RoundedCorners(30))
+                    .into(postImg);
+        }
 
 
         star.setImageResource(R.drawable.ic_outline_star_border_24);
