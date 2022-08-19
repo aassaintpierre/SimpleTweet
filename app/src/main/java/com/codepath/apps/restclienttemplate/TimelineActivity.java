@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -41,6 +42,14 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         client =TwitterApp.getRestClient(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.tw_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        getSupportActionBar().setTitle("Twitter");
 
         swipeContainer = findViewById(R.id.swipeContainer);
         // Configure the refreshing colors
@@ -74,7 +83,7 @@ public class TimelineActivity extends AppCompatActivity {
 
                 itent.putExtra("tweets", Parcels.wrap(tweet));
 
-            TimelineActivity.this.startActivity(itent);
+                TimelineActivity.this.startActivity(itent);
             }
         });
 
@@ -126,7 +135,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
-//            @SuppressLint("NotifyDataSetChanged")
+            //            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.i(TAG,"OnScuccess!"+json.toString());

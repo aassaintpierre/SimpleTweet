@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -17,6 +18,10 @@ public class DetailActivity extends AppCompatActivity {
     private   TextView tvView;
     private TextView txtView;
     private ImageView imaj;
+    TextView name;
+    TextView tvRetweet;
+    TextView tvFavorite;
+    TextView tvTime;
     ImageView star;
     ImageView retweet;
     ImageView share;
@@ -27,18 +32,35 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        txtView = findViewById(R.id.tvname);
+        txtView = findViewById(R.id.tvusrname);
         tvView = findViewById(R.id.tvbody2);
         imaj = findViewById(R.id.imaj);
         star = findViewById(R.id.star);
         retweet = findViewById(R.id.retweet);
         comment = findViewById(R.id.comment);
         share = findViewById(R.id.share);
+        name = findViewById(R.id.tvName);
+        tvRetweet = findViewById(R.id.tvRetweet);
+        tvFavorite = findViewById(R.id.tvFav);
+        tvTime = findViewById(R.id.tvTime);
+
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar2);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.tw_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setTitle("Twitter");
+
 
         Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("Tweet"));
 
         tvView.setText(tweet.getBody());
         txtView.setText(tweet.user.name);
+        name.setText(tweet.user.screenName);
+        tvRetweet.setText(tweet.getRetweet());
+        tvFavorite.setText(tweet.getLike());
+        tvTime.setText(tweet.getCreatedAt());
 
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
