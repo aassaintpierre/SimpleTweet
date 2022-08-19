@@ -120,11 +120,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .into(ivProfileImage);
 
             if (!tweet.entities.media_Url.isEmpty()) {
-                tImage.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.entities.media_Url)
                         .transform(new RoundedCorners(40))
                         .into(tImage);
+            }
 
                 container.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -140,4 +140,4 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
     }
-}
+

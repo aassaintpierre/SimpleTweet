@@ -1,10 +1,6 @@
 package com.codepath.apps.restclienttemplate.models;
 
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,12 +11,9 @@ import java.util.List;
 
 
 @Parcel
-@Entity
 public class Tweet {
     public Tweet(){}
 
-    @ColumnInfo
-    @PrimaryKey(autoGenerate=true)
     public long id;
 
     public String body;
@@ -36,8 +29,8 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
-        tweet.like = jsonObject.getString("favorite");
-        tweet.retweet = jsonObject.getString("retweet");
+        tweet.like = jsonObject.getString("favorite_count");
+        tweet.retweet = jsonObject.getString("retweet_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.entities = Entities.fromJson(jsonObject.getJSONObject("entities"));
         return tweet;

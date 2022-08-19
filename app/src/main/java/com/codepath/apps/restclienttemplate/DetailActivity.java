@@ -63,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         name.setText(tweet.user.screenName);
         tvRetweet.setText(tweet.getRetweet());
         tvFavorite.setText(tweet.getLike());
-        tvTime.setText(tweet.getCreatedAt());
+        tvTime.setText(tweet.createdAt);
 
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
