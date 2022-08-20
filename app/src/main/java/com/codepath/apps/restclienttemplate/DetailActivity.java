@@ -71,6 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
                 .transform(new CircleCrop())
+                .placeholder(R.drawable.loading)
                 .into(imaj);
 
         if(!tweet.entities.media_Url.isEmpty()) {
@@ -78,6 +79,7 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(tweet.entities.media_Url)
                     .transform(new RoundedCorners(30))
+                    .placeholder(R.drawable.loading)
                     .into(postImg);
         }
 
@@ -93,7 +95,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int like =  Integer.parseInt(tweet.like);
                 if(!tweet.likeBool){
-                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_star2);
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_star2);
                     drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     star.setCompoundDrawables(drawable, null, null, null);
 
@@ -107,7 +109,7 @@ public class DetailActivity extends AppCompatActivity {
                     star.setText(tweet.like);
                     tweet.likeBool = false;
 
-                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_outline_star_border_24);
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_outline_star_border_24);
                     drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     star.setCompoundDrawables(drawable, null, null, null);
                 }
