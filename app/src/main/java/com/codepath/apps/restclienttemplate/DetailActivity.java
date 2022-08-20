@@ -15,6 +15,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.volokh.danylo.video_player_manager.manager.PlayerItemChangeListener;
+import com.volokh.danylo.video_player_manager.manager.SingleVideoPlayerManager;
+import com.volokh.danylo.video_player_manager.manager.VideoPlayerManager;
+import com.volokh.danylo.video_player_manager.meta.MetaData;
+import com.volokh.danylo.video_player_manager.ui.VideoPlayerView;
 
 
 import org.parceler.Parcels;
@@ -24,15 +29,12 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtView;
     private ImageView imaj;
     TextView name;
-    TextView tvRetweet;
-    TextView tvFavorite;
     TextView tvTime;
     ImageView postImg;
     TextView star;
     TextView retweet;
     TextView share;
     TextView comment;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,8 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 }
