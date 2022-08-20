@@ -18,6 +18,7 @@ public class Tweet {
 
     public String body;
     public String createdAt;
+    public boolean likeBool;
 
     public User user;
     public String like, retweet;
@@ -32,6 +33,7 @@ public class Tweet {
         tweet.like = jsonObject.getString("favorite_count");
         tweet.retweet = jsonObject.getString("retweet_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.likeBool = jsonObject.getBoolean("favorited");
         tweet.entities = Entities.fromJson(jsonObject.getJSONObject("entities"));
         return tweet;
     }

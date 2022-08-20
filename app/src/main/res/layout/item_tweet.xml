@@ -74,41 +74,43 @@
         android:fontFamily="sans-serif-medium"
         tools:text="a moment ago" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/twComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tImage"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="41dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:drawableLeft="@drawable/ic_outline_mode_comment_24" />
+
+    <TextView
+        android:id="@+id/twShare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tImage"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginStart="239dp"
+        android:layout_marginTop="43dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:orientation="horizontal">
+        android:drawableLeft="@drawable/ic_outline_share_24" />
 
-        <TextView
-            android:id="@+id/twComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:drawableLeftCompat="@drawable/ic_outline_mode_comment_24" />
+    <TextView
+        android:id="@+id/twStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tImage"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="43dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:drawableLeft="@drawable/ic_outline_star_border_24" />
 
-        <TextView
-            android:id="@+id/twShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:drawableLeftCompat="@drawable/ic_outline_share_24" />
-
-        <TextView
-            android:id="@+id/twStar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:drawableLeftCompat="@drawable/ic_outline_star_border_24" />
-
-        <TextView
-            android:id="@+id/twRetweet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:drawableLeftCompat="@drawable/ic_repeat" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/twRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tImage"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="44dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:drawableLeft="@drawable/ic_repeat" />
 </RelativeLayout>

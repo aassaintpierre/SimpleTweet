@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
@@ -127,14 +129,41 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)
+                    .transform(new CircleCrop())
                     .into(ivProfileImage);
 
             if (!tweet.entities.media_Url.isEmpty()) {
                 Glide.with(context)
                         .load(tweet.entities.media_Url)
-                        .transform(new RoundedCorners(40))
                         .into(tImage);
             }
+
+            tStar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int like =  Integer.parseInt(tweet.like);
+                    if(!tweet.likeBool){
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_star2);
+                        drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        tStar.setCompoundDrawables(drawable, null, null, null);
+
+                        like += 1;
+                        tweet.like = String.valueOf(like);
+                        tStar.setText(tweet.like);
+                        tweet.likeBool = true;
+                    }else {
+                        like -= 1;
+                        tweet.like = String.valueOf(like);
+                        tStar.setText(tweet.like);
+                        tweet.likeBool = false;
+
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_outline_star_border_24);
+                        drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        tStar.setCompoundDrawables(drawable, null, null, null);
+                    }
+
+                }
+                });
 
                 container.setOnClickListener(new View.OnClickListener() {
                     @Override
