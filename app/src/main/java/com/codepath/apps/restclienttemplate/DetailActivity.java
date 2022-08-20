@@ -2,7 +2,10 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,10 +28,11 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvFavorite;
     TextView tvTime;
     ImageView postImg;
-    ImageView star;
-    ImageView retweet;
-    ImageView share;
-    ImageView comment;
+    TextView star;
+    TextView retweet;
+    TextView share;
+    TextView comment;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,8 @@ public class DetailActivity extends AppCompatActivity {
         star = findViewById(R.id.star);
         retweet = findViewById(R.id.retweet);
         comment = findViewById(R.id.comment);
-        share = findViewById(R.id.share);
+        share = findViewById(R.id.retweet);
         name = findViewById(R.id.tvName);
-        tvRetweet = findViewById(R.id.tvRetweet);
-        tvFavorite = findViewById(R.id.tvFav);
         tvTime = findViewById(R.id.tvTime);
         postImg = findViewById(R.id.tvImage);
 
@@ -62,9 +64,9 @@ public class DetailActivity extends AppCompatActivity {
         tvView.setText(tweet.body);
         txtView.setText(tweet.user.name);
         name.setText(tweet.user.screenName);
-        tvRetweet.setText(tweet.retweet + " retweets");
-        tvFavorite.setText(tweet.like + " likes");
         tvTime.setText(tweet.createdAt);
+        retweet.setText(tweet.retweet);
+        star.setText(tweet.like);
 
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
@@ -79,10 +81,43 @@ public class DetailActivity extends AppCompatActivity {
                     .into(postImg);
         }
 
+        if(tweet.likeBool){
+            Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_star2);
+            drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            star.setCompoundDrawables(drawable, null, null, null);
 
-        star.setImageResource(R.drawable.ic_outline_star_border_24);
-        share.setImageResource(R.drawable.ic_outline_share_24);
-        comment.setImageResource(R.drawable.ic_outline_mode_comment_24);
-        retweet.setImageResource(R.drawable.ic_repeat);
+
+//            tweet.like = String.valueOf(like);
+//            star.setText(tweet.like);
+//            tweet.likeBool = true;
+        }
+
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int like =  Integer.parseInt(tweet.like);
+                if(!tweet.likeBool){
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_star2);
+                    drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    star.setCompoundDrawables(drawable, null, null, null);
+
+                    like += 1;
+                    tweet.like = String.valueOf(like);
+                    star.setText(tweet.like);
+                    tweet.likeBool = true;
+                }else {
+                    like -= 1;
+                    tweet.like = String.valueOf(like);
+                    star.setText(tweet.like);
+                    tweet.likeBool = false;
+
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_outline_star_border_24);
+                    drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    star.setCompoundDrawables(drawable, null, null, null);
+                }
+
+            }
+        });
+
     }
 }
