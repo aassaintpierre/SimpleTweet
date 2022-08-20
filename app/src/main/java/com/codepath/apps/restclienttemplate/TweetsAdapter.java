@@ -95,6 +95,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tName;
         TextView tTime;
         ImageView tImage;
+        TextView tRetweet;
+        TextView tShare;
+        TextView tStar;
+        TextView tComment;
         RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener clickListener) {
@@ -105,6 +109,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tScreenName);
             tTime = itemView.findViewById(R.id.tTime);
             tImage = itemView.findViewById(R.id.tImage);
+            tRetweet = itemView.findViewById(R.id.twRetweet);
+            tShare = itemView.findViewById(R.id.twShare);
+            tStar = itemView.findViewById(R.id.twStar);
+            tComment = itemView.findViewById(R.id.twComment);
             container = itemView.findViewById(R.id.container);
 
         }
@@ -114,6 +122,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText("@" + tweet.user.screenName);
             tName.setText(tweet.user.name);
             tTime.setText(tweet.createdAt);
+            tRetweet.setText(tweet.retweet);
+            tStar.setText(tweet.like);
 
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)

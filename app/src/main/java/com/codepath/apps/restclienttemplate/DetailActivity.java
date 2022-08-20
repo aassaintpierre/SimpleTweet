@@ -58,11 +58,11 @@ public class DetailActivity extends AppCompatActivity {
 
         Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("Tweet"));
 
-        tvView.setText(tweet.getBody());
+        tvView.setText(tweet.body);
         txtView.setText(tweet.user.name);
         name.setText(tweet.user.screenName);
-        tvRetweet.setText(tweet.getRetweet());
-        tvFavorite.setText(tweet.getLike());
+        tvRetweet.setText(tweet.retweet + " retweets");
+        tvFavorite.setText(tweet.like + " likes");
         tvTime.setText(tweet.createdAt);
 
         Glide.with(this)
