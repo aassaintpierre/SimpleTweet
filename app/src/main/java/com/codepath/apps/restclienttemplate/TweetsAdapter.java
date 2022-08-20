@@ -109,7 +109,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tStar;
         TextView tComment;
         RelativeLayout container;
-        VideoPlayerView mVideoPlayer_1;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener clickListener) {
             super(itemView);
@@ -124,7 +123,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tStar = itemView.findViewById(R.id.twStar);
             tComment = itemView.findViewById(R.id.twComment);
             container = itemView.findViewById(R.id.container);
-            mVideoPlayer_1 = itemView.findViewById(R.id.videoPlayer);
 
         }
 
@@ -186,16 +184,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
-            if (!tweet.extended.media_Url.isEmpty()){
-                VideoPlayerManager<MetaData> mVideoPlayerManager = new SingleVideoPlayerManager(new PlayerItemChangeListener() {
-                    @Override
-                    public void onPlayerItemChanged(MetaData metaData) {
-
-                    }
-
-                });
-            mVideoPlayerManager.playNewVideo(null, mVideoPlayer_1, tweet.extended.media_Url);
-        }
 
         }
         }
