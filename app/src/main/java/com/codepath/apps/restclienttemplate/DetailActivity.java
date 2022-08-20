@@ -86,10 +86,6 @@ public class DetailActivity extends AppCompatActivity {
             drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             star.setCompoundDrawables(drawable, null, null, null);
 
-
-//            tweet.like = String.valueOf(like);
-//            star.setText(tweet.like);
-//            tweet.likeBool = true;
         }
 
         star.setOnClickListener(new View.OnClickListener() {
