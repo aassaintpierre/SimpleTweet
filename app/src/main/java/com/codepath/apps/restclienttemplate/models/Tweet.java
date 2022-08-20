@@ -24,6 +24,7 @@ public class Tweet {
     public String like, retweet;
 
     public Entities entities;
+    public Extended extended;
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
@@ -35,6 +36,13 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.likeBool = jsonObject.getBoolean("favorited");
         tweet.entities = Entities.fromJson(jsonObject.getJSONObject("entities"));
+        if(jsonObject.has("extended_entities")){
+            tweet.extended = Extended.fromJson(jsonObject.getJSONObject("extended_entities"));
+        }else{
+            tweet.extended = new Extended();
+            tweet.extended.media_Url = "";
+        }
+
         return tweet;
     }
 
@@ -47,27 +55,8 @@ public class Tweet {
         return tweets;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
     public long getId() {
         return id;
     }
 
-    public String getRetweet() {
-        return retweet;
-    }
-
-    public String getLike() {
-        return body;
-    }
-
-    public User getUser() {
-        return user;
-    }
 }

@@ -18,6 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.volokh.danylo.video_player_manager.manager.PlayerItemChangeListener;
+import com.volokh.danylo.video_player_manager.manager.SingleVideoPlayerManager;
+import com.volokh.danylo.video_player_manager.manager.VideoPlayerManager;
+import com.volokh.danylo.video_player_manager.meta.MetaData;
+import com.volokh.danylo.video_player_manager.ui.SimpleMainThreadMediaPlayerListener;
+import com.volokh.danylo.video_player_manager.ui.VideoPlayerView;
 
 import org.parceler.Parcels;
 
@@ -103,6 +109,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tStar;
         TextView tComment;
         RelativeLayout container;
+        VideoPlayerView mVideoPlayer_1;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener clickListener) {
             super(itemView);
@@ -117,6 +124,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tStar = itemView.findViewById(R.id.twStar);
             tComment = itemView.findViewById(R.id.twComment);
             container = itemView.findViewById(R.id.container);
+            mVideoPlayer_1 = itemView.findViewById(R.id.videoPlayer);
 
         }
 
@@ -145,41 +153,51 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tStar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int like =  Integer.parseInt(tweet.like);
-                    if(!tweet.likeBool){
+                    int like = Integer.parseInt(tweet.like);
+                    if (!tweet.likeBool) {
                         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_star2);
-                        drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                         tStar.setCompoundDrawables(drawable, null, null, null);
 
                         like += 1;
                         tweet.like = String.valueOf(like);
                         tStar.setText(tweet.like);
                         tweet.likeBool = true;
-                    }else {
+                    } else {
                         like -= 1;
                         tweet.like = String.valueOf(like);
                         tStar.setText(tweet.like);
                         tweet.likeBool = false;
 
                         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_outline_star_border_24);
-                        drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                         tStar.setCompoundDrawables(drawable, null, null, null);
                     }
 
                 }
-                });
+            });
 
-                container.setOnClickListener(new View.OnClickListener() {
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("Tweet", Parcels.wrap(tweet));
+                    context.startActivity(intent);
+                }
+            });
+
+            if (!tweet.extended.media_Url.isEmpty()){
+                VideoPlayerManager<MetaData> mVideoPlayerManager = new SingleVideoPlayerManager(new PlayerItemChangeListener() {
                     @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra("Tweet", Parcels.wrap(tweet));
-                        context.startActivity(intent);
+                    public void onPlayerItemChanged(MetaData metaData) {
+
                     }
+
                 });
+            mVideoPlayerManager.playNewVideo(null, mVideoPlayer_1, tweet.extended.media_Url);
+        }
 
-
-            }
+        }
         }
 
     }

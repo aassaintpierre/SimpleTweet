@@ -68,4 +68,6 @@ dependencies {
     implementation'org.parceler:parceler-api:1.1.12'
 
     annotationProcessor'org.parceler:parceler:1.1.12'
+
+    compile 'com.github.danylovolokh:video-player-manager:0.2.0'
 }

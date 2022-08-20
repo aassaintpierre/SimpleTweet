@@ -63,6 +63,16 @@
         android:visibility="visible"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <com.volokh.danylo.video_player_manager.ui.VideoPlayerView
+        android:id="@+id/videoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/tTime"
         android:layout_width="wrap_content"
