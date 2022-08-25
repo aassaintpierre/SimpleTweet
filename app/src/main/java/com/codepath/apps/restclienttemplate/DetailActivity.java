@@ -1,12 +1,15 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +61,7 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar2);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setLogo(R.mipmap.tw_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setTitle("Twitter");
@@ -125,4 +129,15 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int back = R.id.homeAsUp;
+        Intent intent = new Intent(DetailActivity.this,TimelineActivity.class);
+        intent.putExtra("back",Parcels.wrap(back));
+        DetailActivity.this.startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
 }
+

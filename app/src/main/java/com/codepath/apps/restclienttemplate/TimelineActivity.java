@@ -229,9 +229,9 @@ public class TimelineActivity extends AppCompatActivity {
 //                            tweetDao.insertModel(entitiesFromNetwork.toArray(new Entities[0]));
 
                             List<TweetWithUser> tweetWithUser = tweetDao.recentItems();
-                            List<Tweet> tweetsFRomDB = TweetWithUser.getTweetList(tweetWithUser);
-                            adapter.clear();
-                            adapter.addAll(tweetsFRomDB);
+//                            List<Tweet> tweetsFRomDB = TweetWithUser.getTweetList(tweetWithUser);
+//                            adapter.clear();
+//                            adapter.addAll(tweetsFRomDB);
                         }
                     });
                 } catch (JSONException e) {

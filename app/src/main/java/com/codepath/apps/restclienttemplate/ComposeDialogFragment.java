@@ -67,7 +67,7 @@ public class ComposeDialogFragment extends DialogFragment {
         getDialog().setTitle(title);
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        getDialog().getWindow().setLayout(600,800);
+        getDialog().getWindow().setLayout(1000,1500);
 
 
 
