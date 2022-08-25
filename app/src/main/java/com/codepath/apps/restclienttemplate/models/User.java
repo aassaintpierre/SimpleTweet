@@ -1,24 +1,40 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Parcel
+@Entity
 
 public class User {
-    //    private static final long serialVersionUID = -423074706015661304L;
+    @ColumnInfo
     public String name;
+
+    @PrimaryKey
+    @ColumnInfo
     public long id;
+
+    @ColumnInfo
     public String screenName;
+
+    @ColumnInfo
     public String profileImageUrl;
 
-    public User(){}
+    public User() {
+    }
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
         User user = new User();
+        user.id = jsonObject.getLong("id");
         user.name = jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url_https");
@@ -26,27 +42,17 @@ public class User {
         return user;
     }
 
+    public static List<User> fromjsonTweetArray(List<Tweet> tweetsFromNetwork) {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < tweetsFromNetwork.size(); i++) {
+            users.add(tweetsFromNetwork.get(i).user);
 
-//    sonje retire
-//User.fromJson(...)
-//    public static User fromJson(JSONObject jsonObject) {
-//        User user = new User();
-//        //extract values from json to populate the member variables
-//        try{
-//            user.name = jsonObject.getString("name");
-//            user.id = jsonObject.getLong("id");
-//            user.screenName = jsonObject.getString("screen_name");
-//            user.profileImageUrl = jsonObject.getString("profile_image_url");
-//        }catch(JSONException e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return user;
-//    }
-//
-////sonje retire
-//
-//
+        }
+        return users;
+    }
+
+
+
     public String getName() {
         return name;
     }

@@ -81,7 +81,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
-    //    @SuppressLint("NotifyDataSetChanged")
     public void clear() {
 
         tweets.clear();
@@ -101,6 +100,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
+        TextView date1;
         TextView tName;
         TextView tTime;
         ImageView tImage;
@@ -115,6 +115,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tName = itemView.findViewById(R.id.tName);
+            date1 = itemView.findViewById(R.id.date1);
             tvScreenName = itemView.findViewById(R.id.tScreenName);
             tTime = itemView.findViewById(R.id.tTime);
             tImage = itemView.findViewById(R.id.tImage);
@@ -130,6 +131,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText("@" + tweet.user.screenName);
             tName.setText(tweet.user.name);
+            date1.setText(Tweet.getFormattedTime(tweet.getCreatedAt()));
             tTime.setText(tweet.createdAt);
             tRetweet.setText(tweet.retweet);
             tStar.setText(tweet.like);
@@ -140,13 +142,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .placeholder(R.drawable.loading)
                     .into(ivProfileImage);
 
-            if (!tweet.entities.media_Url.isEmpty()) {
-                Glide.with(context)
-                        .load(tweet.entities.media_Url)
-                        .placeholder(R.drawable.loading)
-                        .transform(new RoundedCorners(30))
-                        .into(tImage);
-            }
+//            if (!tweet.entities.media_Url.isEmpty()) {
+//                Glide.with(context)
+//                        .load(tweet.entities.media_Url)
+//                        .placeholder(R.drawable.loading)
+//                        .transform(new RoundedCorners(30))
+//                        .into(tImage);
+//            }
 
             tStar.setOnClickListener(new View.OnClickListener() {
                 @Override

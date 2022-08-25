@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tName"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
@@ -62,6 +62,14 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         android:visibility="visible"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/date1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/tName"
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/tTime"

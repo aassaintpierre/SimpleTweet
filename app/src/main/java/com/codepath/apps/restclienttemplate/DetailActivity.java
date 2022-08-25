@@ -31,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView name;
     TextView tvTime;
     ImageView postImg;
+    TextView date;
     TextView star;
     TextView retweet;
     TextView share;
@@ -44,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         txtView = findViewById(R.id.tvusrname);
         tvView = findViewById(R.id.tvbody2);
         imaj = findViewById(R.id.imaj);
+        date = findViewById(R.id.date);
         star = findViewById(R.id.star);
         retweet = findViewById(R.id.retweet);
         comment = findViewById(R.id.comment);
@@ -66,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         tvView.setText(tweet.body);
         txtView.setText(tweet.user.name);
         name.setText(tweet.user.screenName);
+        date.setText(Tweet.getFormattedTime1(tweet.getCreatedAt()));
         tvTime.setText(tweet.createdAt);
         retweet.setText(tweet.retweet);
         star.setText(tweet.like);
@@ -76,14 +79,14 @@ public class DetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .into(imaj);
 
-        if(!tweet.entities.media_Url.isEmpty()) {
-            postImg.setVisibility(View.VISIBLE);
-            Glide.with(this)
-                    .load(tweet.entities.media_Url)
-                    .transform(new RoundedCorners(30))
-                    .placeholder(R.drawable.loading)
-                    .into(postImg);
-        }
+//        if(!tweet.entities.media_Url.isEmpty()) {
+//            postImg.setVisibility(View.VISIBLE);
+//            Glide.with(this)
+//                    .load(tweet.entities.media_Url)
+//                    .transform(new RoundedCorners(30))
+//                    .placeholder(R.drawable.loading)
+//                    .into(postImg);
+//        }
 
         if(tweet.likeBool){
             Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_star2);
