@@ -13,14 +13,31 @@
 
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="278dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="258dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/imageView"
 
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/navy_blue"
         android:onClick="loginToRest"
-        android:text="Connecte to twitter" />
+        android:text="Connect to twitter" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="176dp"
+        android:layout_height="129dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="252dp"
+        android:layout_marginEnd="105dp"
+        app:srcCompat="@drawable/ic_twitter" />
 
 
 </RelativeLayout>

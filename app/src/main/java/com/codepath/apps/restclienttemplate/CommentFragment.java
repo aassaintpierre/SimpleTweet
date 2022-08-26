@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,15 +24,19 @@ import org.json.JSONException;
 
 import okhttp3.Headers;
 
-public class ComposeDialogFragment extends DialogFragment {
+public class CommentFragment extends DialogFragment {
     public  static final String TAG="ComposeDialogFragment";
     public  static final  int MAX_TWEET_LENGTH=140;
-    EditText etFragment;
-    Button btnFragment;
+    EditText etcomment;
+    Button btncomment;
     Context context;
     TwitterClient client;
+    ImageButton t_cancel;
+    ImageButton t_profil;
+    TextView Nme;
+    TextView Su_name;
 
-    public ComposeDialogFragment() {
+    public CommentFragment() {
 
     }
 
@@ -52,29 +58,38 @@ public class ComposeDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_compose_fragment, container);
+        return inflater.inflate(R.layout.activity_comment_fragment, container);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        etFragment = (EditText) view.findViewById(R.id.etFragment);
-        btnFragment = (Button) view.findViewById(R.id.btnFragment);
+        etcomment = (EditText) view.findViewById(R.id.etcomment);
+        btncomment = (Button) view.findViewById(R.id.btncomment);
+        t_cancel = (ImageButton)view.findViewById(R.id.t_cancel);
+        t_profil = (ImageButton)view.findViewById(R.id.t_profil);
+        Nme = (TextView)view.findViewById(R.id.Nme);
+        Su_name=(TextView)view.findViewById(R.id.Su_name);
 
         String title = getArguments().getString("title", "Enter your text");
 
         getDialog().setTitle(title);
+
+
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().getWindow().setLayout(800,1000);
 
 
 
-        btnFragment.setOnClickListener(new View.OnClickListener() {
+
+
+
+        btncomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tweetContent=etFragment.getText().toString();
+                String tweetContent=etcomment.getText().toString();
                 if(tweetContent.isEmpty()){
 
                     Toast.makeText(getContext(),"Sorry your tweet cannot be empty",Toast.LENGTH_LONG).show();
@@ -112,4 +127,5 @@ public class ComposeDialogFragment extends DialogFragment {
 
 
 }
+
 

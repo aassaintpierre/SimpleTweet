@@ -28,17 +28,31 @@ import com.volokh.danylo.video_player_manager.ui.VideoPlayerView;
 import org.parceler.Parcels;
 
 public class DetailActivity extends AppCompatActivity {
-    private   TextView tvView;
+    private TextView tvView;
     private TextView txtView;
     private ImageView imaj;
     TextView name;
     TextView tvTime;
     ImageView postImg;
     TextView date;
+
     TextView star;
     TextView retweet;
     TextView share;
     TextView comment;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int back = R.id.homeAsUp;
+        Intent intent = new Intent(DetailActivity.this, TimelineActivity.class);
+        intent.putExtra("back", Parcels.wrap(back));
+        DetailActivity.this.startActivity(intent);
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         tvView = findViewById(R.id.tvbody2);
         imaj = findViewById(R.id.imaj);
         date = findViewById(R.id.date);
+
         star = findViewById(R.id.star);
         retweet = findViewById(R.id.retweet);
         comment = findViewById(R.id.comment);
@@ -75,6 +90,7 @@ public class DetailActivity extends AppCompatActivity {
         date.setText(Tweet.getFormattedTime1(tweet.getCreatedAt()));
         tvTime.setText(tweet.createdAt);
         retweet.setText(tweet.retweet);
+        comment.setText(tweet.like);
         star.setText(tweet.like);
 
         Glide.with(this)
@@ -83,18 +99,25 @@ public class DetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .into(imaj);
 
-//        if(!tweet.entities.media_Url.isEmpty()) {
-//            postImg.setVisibility(View.VISIBLE);
-//            Glide.with(this)
-//                    .load(tweet.entities.media_Url)
-//                    .transform(new RoundedCorners(30))
-//                    .placeholder(R.drawable.loading)
-//                    .into(postImg);
-//        }
+        if(!tweet.entities.getMedia_Url().isEmpty()) {
+            postImg.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(tweet.entities.media_Url)
+                    .transform(new RoundedCorners(30))
+                    .placeholder(R.drawable.loading)
+                    .into(postImg);
+        }
 
-        if(tweet.likeBool){
+        if (tweet.likeBool) {
+            Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.icon_repeat);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            retweet.setCompoundDrawables(drawable, null, null, null);
+
+        }
+
+        if (tweet.likeBool) {
             Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_star2);
-            drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             star.setCompoundDrawables(drawable, null, null, null);
 
         }
@@ -102,42 +125,64 @@ public class DetailActivity extends AppCompatActivity {
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int like =  Integer.parseInt(tweet.like);
-                if(!tweet.likeBool){
+                int like = Integer.parseInt(tweet.like);
+                if (!tweet.likeBool) {
                     Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_star2);
-                    drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     star.setCompoundDrawables(drawable, null, null, null);
 
                     like += 1;
                     tweet.like = String.valueOf(like);
                     star.setText(tweet.like);
                     tweet.likeBool = true;
-                }else {
+                } else {
                     like -= 1;
                     tweet.like = String.valueOf(like);
                     star.setText(tweet.like);
                     tweet.likeBool = false;
 
                     Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_outline_star_border_24);
-                    drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     star.setCompoundDrawables(drawable, null, null, null);
                 }
 
             }
         });
 
+        share.setOnClickListener((View v) -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, tweet.getUrl());
+            startActivity(Intent.createChooser(shareIntent, "Share link using"));
+        });
+
+        retweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int like = Integer.parseInt(tweet.like);
+                if (!tweet.likeBool) {
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.icon_repeat);
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    retweet.setCompoundDrawables(drawable, null, null, null);
+
+                    like += 1;
+                    tweet.like = String.valueOf(like);
+                    retweet.setText(tweet.like);
+                    tweet.likeBool = true;
+                } else {
+                    like -= 1;
+                    tweet.like = String.valueOf(like);
+                    retweet.setText(tweet.like);
+                    tweet.likeBool = false;
+
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_repeat);
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    retweet.setCompoundDrawables(drawable, null, null, null);
+                }
+
+            }
+        });
 
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        int back = R.id.homeAsUp;
-        Intent intent = new Intent(DetailActivity.this,TimelineActivity.class);
-        intent.putExtra("back",Parcels.wrap(back));
-        DetailActivity.this.startActivity(intent);
-        return super.onOptionsItemSelected(item);
-    }
-}
+    }}
 

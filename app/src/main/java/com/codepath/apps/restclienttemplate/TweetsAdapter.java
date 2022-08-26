@@ -107,7 +107,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tRetweet;
         TextView tShare;
         TextView tStar;
-        TextView tComment;
+        TextView twRetweet;
+
         RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener clickListener) {
@@ -122,7 +123,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tRetweet = itemView.findViewById(R.id.twRetweet);
             tShare = itemView.findViewById(R.id.twShare);
             tStar = itemView.findViewById(R.id.twStar);
-            tComment = itemView.findViewById(R.id.twComment);
+            twRetweet = itemView.findViewById(R.id.twRetweet);
             container = itemView.findViewById(R.id.container);
 
         }
@@ -134,6 +135,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             date1.setText(Tweet.getFormattedTime(tweet.getCreatedAt()));
             tTime.setText(tweet.createdAt);
             tRetweet.setText(tweet.retweet);
+            twRetweet.setText(tweet.like);
             tStar.setText(tweet.like);
 
             Glide.with(context)
@@ -142,13 +144,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .placeholder(R.drawable.loading)
                     .into(ivProfileImage);
 
-//            if (!tweet.entities.media_Url.isEmpty()) {
-//                Glide.with(context)
-//                        .load(tweet.entities.media_Url)
-//                        .placeholder(R.drawable.loading)
-//                        .transform(new RoundedCorners(30))
-//                        .into(tImage);
-//            }
+            if (!tweet.entities.getMedia_Url().isEmpty()) {
+                Glide.with(context)
+                        .load(tweet.entities.media_Url)
+                        .placeholder(R.drawable.loading)
+                        .transform(new RoundedCorners(30))
+                        .into(tImage);
+            }
+
+
 
             tStar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,6 +180,43 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
                 }
             });
+
+
+            twRetweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int like = Integer.parseInt(tweet.like);
+                    if (!tweet.likeBool) {
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_repeat);
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        twRetweet.setCompoundDrawables(drawable, null, null, null);
+
+                        like += 1;
+                        tweet.like = String.valueOf(like);
+                        twRetweet.setText(tweet.like);
+                        tweet.likeBool = true;
+                    } else {
+                        like -= 1;
+                        tweet.like = String.valueOf(like);
+                        twRetweet.setText(tweet.like);
+                        tweet.likeBool = false;
+
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_repeat);
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        twRetweet.setCompoundDrawables(drawable, null, null, null);
+                    }
+
+                }
+            });
+
+            tShare.setOnClickListener((View v) -> {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, tweet.getUrl());
+                context.startActivity(Intent.createChooser(shareIntent, "Share link using"));
+            });
+
+
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override

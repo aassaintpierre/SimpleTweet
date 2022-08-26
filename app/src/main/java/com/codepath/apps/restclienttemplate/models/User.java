@@ -57,32 +57,12 @@ public class User {
         return name;
     }
 
-    public long getid() {
-        return id;
-    }
-
     public String getScreenName() {
-        return screenName;
+        return "@"+screenName;
     }
 
     public String getProfileImageUrl() {
         return profileImageUrl;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setid(long id) {
-        this.id = id;
-    }
-
-    public void setScreenName(String screenName) {
-        this.screenName = screenName;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
     }
 
 }

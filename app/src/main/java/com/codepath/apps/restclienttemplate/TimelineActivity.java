@@ -139,8 +139,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void run() {Log.i(TAG,"Showing data from database ");
 
-               List<TweetWithUser> tweetWithUser = tweetDao.recentItems();
-               List<Tweet> tweetsFRomDB = TweetWithUser.getTweetList(tweetWithUser);
+               List<TweetWithUser> tweetWithUsers = tweetDao.recentItems();
+               List<Tweet> tweetsFRomDB = TweetWithUser.getTweetList(tweetWithUsers);
                adapter.clear();
                adapter.addAll(tweetsFRomDB);
             }
@@ -219,19 +219,17 @@ public class TimelineActivity extends AppCompatActivity {
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
-                            Log.i(TAG,"Showing data from database ");
+                            Log.i(TAG,"Saving data into  database ");
 //                            Insert user first
                             List<User> usersFromNetwork = User.fromjsonTweetArray(tweetsFromNetwork);
-//                            List<Entities> entitiesFromNetwork = Entities.fromjsonTweetArray(tweetsFromNetwork);
+                            List<Entities> entitiesFromNetwork = Entities.fromjsonTweetArray(tweetsFromNetwork);
                             tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
 //                            Insert tweets next
                             tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
-//                            tweetDao.insertModel(entitiesFromNetwork.toArray(new Entities[0]));
+                            tweetDao.insertModel(entitiesFromNetwork.toArray(new Entities[0]));
 
-                            List<TweetWithUser> tweetWithUser = tweetDao.recentItems();
-//                            List<Tweet> tweetsFRomDB = TweetWithUser.getTweetList(tweetWithUser);
-//                            adapter.clear();
-//                            adapter.addAll(tweetsFRomDB);
+
+
                         }
                     });
                 } catch (JSONException e) {

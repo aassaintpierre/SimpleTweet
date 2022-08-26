@@ -2,4 +2,5 @@
 <resources>
     <color name="ocean_blue">#1DA1F2</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="navy_blue">#1357BE</color>
 </resources>

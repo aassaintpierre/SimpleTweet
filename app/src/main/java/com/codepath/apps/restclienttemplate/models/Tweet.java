@@ -1,8 +1,6 @@
 package com.codepath.apps.restclienttemplate.models;
 
 
-import android.provider.ContactsContract;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -43,7 +41,10 @@ public class Tweet {
     @Ignore
     public User user;
     @ColumnInfo
-    public String like, retweet;
+    public String  retweet;
+
+    @ColumnInfo
+    public String like;
     @Ignore
     public Entities entities;
     @Ignore
@@ -96,5 +97,9 @@ public class Tweet {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getUrl() {
+        return  "https://twitter.com" +user.screenName+ "/status/"+id;
     }
 }

@@ -19,9 +19,50 @@ public class Entities {
     @ColumnInfo
     public long id_entities;
 
+    @ColumnInfo
     public String media_Url, type;
 
-    public Entities(){}
+    public Entities() {
+    }
+//
+//    public static Entities fromJson(JSONObject jsonObject) throws JSONException {
+//        Entities entities = new Entities();
+//        // if cover media is available
+//        if(!jsonObject.has("media")){
+//            entities.media_Url = "";
+//            entities.type = "";
+//        }else if(jsonObject.has("media")){
+//            final JSONArray mediaArray = jsonObject.getJSONArray("media");
+//            entities.id_entities = mediaArray.getJSONObject(0).getLong("id");
+//            entities.media_Url = mediaArray.getJSONObject(0).getString("media_url_https");
+//            entities.type = mediaArray.getJSONObject(0).getString("type");
+//        }
+//        return entities;
+//    }
+//
+//    public static List<Entities> fromjsonTweetArray(List<Tweet> tweetsFromNetwork) {
+//        List<Entities>entities = new ArrayList<>();
+//        for (int i =0; i < tweetsFromNetwork.size(); i++){
+//            entities.add(tweetsFromNetwork.get(i).entities);
+//        }
+//
+//        return entities;
+//    }
+//}
+
+
+    public static List<Entities> fromjsonTweetArray(List<Tweet> tweetsFromNetwork) {
+        List<Entities> entities = new ArrayList<>();
+        for (int i = 0; i < tweetsFromNetwork.size(); i++) {
+            entities.add(tweetsFromNetwork.get(i).entities);
+        }
+
+        return entities;
+    }
+
+    public String getMedia_Url() {
+        return media_Url;
+    }
 
     public static Entities fromJson(JSONObject jsonObject) throws JSONException {
         Entities entities = new Entities();
@@ -29,21 +70,13 @@ public class Entities {
         if(!jsonObject.has("media")){
             entities.media_Url = "";
             entities.type = "";
-        }else if(jsonObject.has("media")){
-            final JSONArray mediaArray = jsonObject.getJSONArray("media");
+        }
+        else if(jsonObject.has("media")){
+           JSONArray mediaArray = jsonObject.getJSONArray("media");
             entities.id_entities = mediaArray.getJSONObject(0).getLong("id");
             entities.media_Url = mediaArray.getJSONObject(0).getString("media_url_https");
             entities.type = mediaArray.getJSONObject(0).getString("type");
         }
-        return entities;
-    }
-
-    public static List<Entities> fromjsonTweetArray(List<Tweet> tweetsFromNetwork) {
-        List<Entities>entities = new ArrayList<>();
-        for (int i =0; i < tweetsFromNetwork.size(); i++){
-            entities.add(tweetsFromNetwork.get(i).entities);
-        }
-
         return entities;
     }
 }
