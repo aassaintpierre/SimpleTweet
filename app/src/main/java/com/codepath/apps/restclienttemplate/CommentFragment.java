@@ -79,7 +79,7 @@ public class CommentFragment extends DialogFragment {
 
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        getDialog().getWindow().setLayout(800,1000);
+        getDialog().getWindow().setLayout(800,1500);
 
 
 

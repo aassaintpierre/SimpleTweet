@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetDao tweetDao;
     TwitterClient client;
     FloatingActionButton floating;
+    User user;
 
     RecyclerView rvTweets;
     List<Tweet> tweets;
@@ -48,10 +50,16 @@ public class TimelineActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
 
+
+
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
         ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+        Bundle bundle=new Bundle();
+        bundle.putParcelable("userInfo",Parcels.wrap(user));
+        composeDialogFragment.setArguments(bundle);
         composeDialogFragment.show(fm, "activity_compose_fragment");
+
     }
 
 
@@ -206,6 +214,28 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void  populateHomeTimeline() {
+
+        client.getInfoUser(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG,"onSuccess!" + json.toString());
+                JSONObject jsonObject= json.jsonObject;
+                try {
+                    user =User.fromJson(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG,"onFailure!" + throwable);
+            }
+        });
+
+
+
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {

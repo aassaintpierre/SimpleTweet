@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,11 +37,11 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvTime;
     ImageView postImg;
     TextView date;
-
     TextView star;
     TextView retweet;
     TextView share;
     TextView comment;
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -67,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
         star = findViewById(R.id.star);
         retweet = findViewById(R.id.retweet);
         comment = findViewById(R.id.comment);
-        share = findViewById(R.id.retweet);
+        share = findViewById(R.id.share);
         name = findViewById(R.id.tvName);
         tvTime = findViewById(R.id.tvTime);
         postImg = findViewById(R.id.tvImage);
@@ -99,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .into(imaj);
 
-        if(!tweet.entities.getMedia_Url().isEmpty()) {
+        if (!tweet.entities.getMedia_Url().isEmpty()) {
             postImg.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .load(tweet.entities.media_Url)
@@ -121,6 +123,18 @@ public class DetailActivity extends AppCompatActivity {
             star.setCompoundDrawables(drawable, null, null, null);
 
         }
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog2();
+            }
+
+            private void showEditDialog2() {
+                FragmentManager fm = getSupportFragmentManager();
+                ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+                composeDialogFragment.show(fm, "activity_compose_fragment");
+            }
+        });
 
         star.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,13 +162,14 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-
         share.setOnClickListener((View v) -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, tweet.getUrl());
             startActivity(Intent.createChooser(shareIntent, "Share link using"));
         });
+
+
 
         retweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,4 +200,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }}
+
+
 

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -105,9 +107,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tTime;
         ImageView tImage;
         TextView tRetweet;
-        TextView tShare;
+        TextView twShare;
         TextView tStar;
         TextView twRetweet;
+        TextView twComment;
 
         RelativeLayout container;
 
@@ -121,9 +124,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tTime = itemView.findViewById(R.id.tTime);
             tImage = itemView.findViewById(R.id.tImage);
             tRetweet = itemView.findViewById(R.id.twRetweet);
-            tShare = itemView.findViewById(R.id.twShare);
+            twShare = itemView.findViewById(R.id.twShare);
             tStar = itemView.findViewById(R.id.twStar);
             twRetweet = itemView.findViewById(R.id.twRetweet);
+            twComment = itemView.findViewById(R.id.twComment);
             container = itemView.findViewById(R.id.container);
 
         }
@@ -152,6 +156,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .into(tImage);
             }
 
+           twComment.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   showEditDialog1();
+               }
+
+               private void showEditDialog1() {
+                   FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+                   ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+                   composeDialogFragment.show(fm, "activity_compose_fragment");
+               }
+           });
 
 
             tStar.setOnClickListener(new View.OnClickListener() {
@@ -209,12 +225,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
-            tShare.setOnClickListener((View v) -> {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, tweet.getUrl());
-                context.startActivity(Intent.createChooser(shareIntent, "Share link using"));
-            });
+
+
+
+
+
+
 
 
 
@@ -227,6 +243,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+
+
+
+            twShare.setOnClickListener((View v) -> {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, tweet.getUrl());
+                context.startActivity(Intent.createChooser(shareIntent, "Share link using"));
+            });
 
         }
         }

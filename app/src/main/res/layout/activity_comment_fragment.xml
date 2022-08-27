@@ -9,17 +9,16 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text"
+        android:id="@+id/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="996dp"
+        android:layout_alignBottom="@+id/etcomment"
+        android:layout_marginBottom="-37dp"
         app:counterEnabled="true"
-        app:counterMaxLength="10">
+        app:counterMaxLength="140">
 
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <ImageButton
         android:id="@+id/t_cancel"
@@ -28,6 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="23dp"
         android:src="@drawable/cancel"
+        android:backgroundTint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
 
@@ -38,8 +38,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="561dp"
         android:layout_marginEnd="23dp"
-        android:scr="@drawable/profil"
+        android:src="@drawable/profil"
         tools:ignore="SpeakableTextPresentCheck" />
+
 
     <EditText
         android:id="@+id/etcomment"
@@ -48,24 +49,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="91dp"
+        android:layout_marginTop="259dp"
         android:backgroundTint="@color/ocean_blue"
         android:ems="10"
         android:gravity="start|top"
         android:hint="What's happenning?"
         android:inputType="textMultiLine"
         android:minLines="5" />
-
-    <Button
-        android:id="@+id/btncomment"
-        android:layout_width="175dp"
-        android:layout_height="64dp"
-        android:layout_alignBottom="@+id/text"
-        android:layout_gravity="right"
-        android:layout_marginStart="620dp"
-        android:layout_marginBottom="-114dp"
-        android:backgroundTint="@color/ocean_blue"
-        android:text="TWEET" />
 
     <TextView
         android:id="@+id/Nme"
@@ -84,6 +74,18 @@
         android:layout_marginStart="-106dp"
         android:layout_marginTop="11dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/btncomment"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/EditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="-69dp"
+        android:backgroundTint="@color/ocean_blue"
+        android:text="TWEET" />
 
 
 </RelativeLayout>
